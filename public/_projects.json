@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Sample 1",
+        "img": "",
+        "tech": ["React", "Node", "Next","JavaScript","C#"],
+        "description": ""
+    },
+    {
+        "name": "Petar 2",
+        "img": "",
+        "tech": ["React", "Node", "Next","JavaScript","C#"],
+        "description": ""
+    },
+    {
+        "name": "Anime Calculator",
+        "img": "",
+        "tech": ["React", "Node", "Next","JavaScript","C#"],
+        "description": ""
+    },
+    {
+        "name": "Petar 3",
+        "img": "",
+        "tech": ["React", "Node", "Next","JavaScript","C#"],
+        "description": ""
+    }
+]

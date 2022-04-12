@@ -1,0 +1,9 @@
+build
+.*
+craco.config.js
+README.md
+tsconfig.json
+
+
+*.json
+*.lock
