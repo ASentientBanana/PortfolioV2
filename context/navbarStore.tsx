@@ -11,16 +11,16 @@ const DefaultNavState: INavContextState = {
 };
 
 const NavContext = createContext<INavContextState>(DefaultNavState);
-const NavContextProvider = ({ children }: {children:ReactNode}) => {
-  const [navState, setNavState] = useState({ currentPage:0 });
-  const navSetter = (pageIndex:number) => {
-    setNavState({...navState,currentPage:pageIndex});
-  }
+const NavContextProvider = ({ children }: { children: ReactNode }) => {
+  const [navState, setNavState] = useState({ currentPage: 0 });
+  const navSetter = (pageIndex: number) => {
+    setNavState({ ...navState, currentPage: pageIndex });
+  };
   return (
     <NavContext.Provider
       value={{
-        changePage:navSetter,
-        ...navState
+        changePage: navSetter,
+        ...navState,
       }}
     >
       {children}

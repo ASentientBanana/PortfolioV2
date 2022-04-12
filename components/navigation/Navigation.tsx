@@ -3,10 +3,10 @@ import DrawerMenu from './DrawerMenu';
 
 const Navigation = () => {
   return (
-      <>
-        <SideNav />
-        <DrawerMenu />
-      </>
+    <>
+      <SideNav />
+      <DrawerMenu />
+    </>
   );
 };
 
