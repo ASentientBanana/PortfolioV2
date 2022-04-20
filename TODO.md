@@ -2,15 +2,16 @@
 
 ### UI
 
-- [] TOC
+- [x] TOC
 - [x] About
 - [] Projects
 - [x] Contact Me
 
 ### API
 
-- [] Add Project
+- [x] Add Project
 - [] Remove Project
+- [] Edit Project
 - [x] Contact Me
 - [x] Get projects
-- [] Finish image uplaod (na fe)
+- [x] Finish image uplaod (na fe)

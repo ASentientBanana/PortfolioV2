@@ -1,9 +1,13 @@
 import { styled, Drawer, List, ListItem } from '@mui/material';
-import { fontWeight } from '@mui/system';
+import { useNavigator } from '../../context/navbarStore';
+import TableOfContentsElement from '../tableOfContents/TableOfContentsElement';
+import DiamondButton from '../diamondButton';
+import ThemePalette from '../ThemePalette';
 
 const DrawerMenu = styled(Drawer)(({ theme }) => ({
-  width: '60vw',
+  width: '60vw !important',
   position: 'relative',
+  backgroundColor:theme.palette.primary.main,
   [theme.breakpoints.down('md')]: {
     display: 'block',
   },
@@ -15,29 +19,11 @@ const DrawerMenu = styled(Drawer)(({ theme }) => ({
 const DrawerListItem = styled(ListItem)({
   width: '60vw',
 });
-const DrawerList = styled(List)({
-  marginTop: '80px',
-});
-const CloseButton = styled('button')({
-  background: 'transparent',
-  position: 'absolute',
-  border: 'black 3px double',
-  top: '20px',
-  right: '20px',
-  width: '40px',
-  height: '40px',
-  cursor: 'pointer',
-  transform: ' rotate(45deg)',
-});
-
-const CloseX = styled('div')({
-  transform: 'rotate(-45deg)',
-  fontWeight: 'bolder',
-  fontSize: '1.5rem',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-});
+const DrawerList = styled(List)(({ theme }) => ({
+  backgroundColor:theme.palette.secondary.main,
+  paddingTop:'80px',
+  height:'100%'
+}));
 
 interface IProps {
   open: boolean;
@@ -45,19 +31,23 @@ interface IProps {
 }
 
 const MobileDrawer = ({ open, setOpen }: IProps) => {
+  const { pages } = useNavigator();
   return (
     <DrawerMenu open={open} anchor={'left'}>
-      <CloseButton onClick={() => setOpen(false)}>
-        <CloseX>
-          <span>X</span>
-        </CloseX>
-      </CloseButton>
+      <DiamondButton
+        onlyOnMobile
+        verticalAlign="right"
+        onClickCallback={() => setOpen(false)}
+        text="X"
+      />
       <DrawerList>
-        <DrawerListItem>ITEM</DrawerListItem>
-        <DrawerListItem>ITEM</DrawerListItem>
-        <DrawerListItem>ITEM</DrawerListItem>
-        <DrawerListItem>ITEM</DrawerListItem>
+        {pages.map((page, index) => (
+          <DrawerListItem key={index}>
+            <TableOfContentsElement noIndex name={page} index={index} />
+          </DrawerListItem>
+        ))}
       </DrawerList>
+      <ThemePalette />
     </DrawerMenu>
   );
 };

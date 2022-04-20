@@ -1,12 +1,14 @@
-import Reat, { useContext } from 'react';
 import { Container, styled } from '@mui/material';
 import TableOfContentsElement from './TableOfContentsElement';
 import { useNavigator } from './../../context/navbarStore';
+import { useTheme } from '../../context/themeStore';
+import ThemePalette from '../ThemePalette';
 
 const MainContainer = styled(Container)(({ theme }) => ({
   height: '100%',
   width: '35%',
-  border: '15px double black',
+  position:'relative',
+  borderRight: `5px double ${theme.palette.primary.main}`,
   padding: ' 0 20px !important',
   margin: 0,
   backgroundColor: theme.palette.secondary.main,
@@ -15,9 +17,11 @@ const MainContainer = styled(Container)(({ theme }) => ({
   },
 }));
 
-const TableOfContents = () => {
-  const pages: string[] = ['About', 'Contact', 'Projects'];
 
+const TableOfContents = () => {
+
+const { pages } = useNavigator();
+  const { setTheme, currentTheme } = useTheme();
   const TOCTitle = styled('h1')({
     textAlign: 'center',
     marginBottom: '50px',
@@ -29,6 +33,7 @@ const TableOfContents = () => {
       {pages.map((page, index) => (
         <TableOfContentsElement name={page} index={index} key={index} />
       ))}
+      <ThemePalette />      
     </MainContainer>
   );
 };

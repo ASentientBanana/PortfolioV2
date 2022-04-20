@@ -3,24 +3,27 @@ import { createContext, ReactNode, useContext, useState } from 'react';
 interface INavContextState {
   currentPage: number;
   changePage: (page: number) => void;
+  pages: string[];
 }
 
 const DefaultNavState: INavContextState = {
   currentPage: 0,
   changePage: () => {},
+  pages: ['About', 'Contact', 'Projects'],
 };
 
 const NavContext = createContext<INavContextState>(DefaultNavState);
 const NavContextProvider = ({ children }: { children: ReactNode }) => {
-  const [navState, setNavState] = useState({ currentPage: 0 });
+  const [navState, setNavState] = useState(DefaultNavState);
+  // const pages: string[] = ['About', 'Contact', 'Projects'];
   const navSetter = (pageIndex: number) => {
     setNavState({ ...navState, currentPage: pageIndex });
   };
   return (
     <NavContext.Provider
       value={{
-        changePage: navSetter,
         ...navState,
+        changePage: navSetter,
       }}
     >
       {children}

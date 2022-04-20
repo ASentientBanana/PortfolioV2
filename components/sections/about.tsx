@@ -2,14 +2,22 @@ import Image from 'next/image';
 import { styled, Container } from '@mui/material';
 
 const ImageContainer = styled(Container)(({ theme }) => ({
-  height: '200px',
-  width: '200px',
+  height: '158px',
+  width: '158px',
   float: 'left',
-  borderRadius: '50%',
+  borderRadius:'10%',
+  paddingTop:'20px',
+  position:'relative',
   [theme.breakpoints.down('sm')]: {
     float: 'none',
   },
 }));
+
+const ImageMe = styled(Image)(({ theme }) => ({
+  borderRadius: '10%',
+}));
+
+
 
 const AboutText = styled('p')({
   fontWeight: 'bolder',
@@ -47,10 +55,11 @@ const About = () => {
       <TitleText>About Me</TitleText>
       <ContentContainer>
         <ImageContainer>
-          <Image
-            src={'/assets/pengi.jpg'}
-            height={250}
-            width={200}
+          <ImageMe
+            height={128}
+            width={128}
+            src={'/assets/me.jpg'}
+            layout='responsive'
             alt="user image"
           />
         </ImageContainer>
@@ -58,16 +67,18 @@ const About = () => {
           Currently i am working as a developer using technologies mostly
           centered around front end development.
         </AboutText>
-        <AboutText>Tech i worked with:</AboutText>
-        <TechContainer>
-          {listOfTech.map((tech, index) => (
-            <span key={index}>{tech.name}, </span>
-          ))}
-        </TechContainer>
         <AboutText>
           Aside from that i also used to work as a game developer working in
           Unity3D and C# where i worked on Android and IOS Games.
         </AboutText>
+        <section>
+          <AboutText>Tech i worked with:</AboutText>
+          <TechContainer>
+            {listOfTech.map((tech, index) => (
+              <span key={index}>{tech.name}, </span>
+            ))}
+          </TechContainer>
+        </section>
         <AboutText>
           I am currently going to University for mechanical engineering majoring
           in mechanical design. A lot of math and geometry and it sometimes

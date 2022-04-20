@@ -1,40 +1,53 @@
 import { styled, Container } from '@mui/material';
-import { FormEventHandler, useRef, useState } from 'react';
+import React , { FormEventHandler, useRef, useState } from 'react';
 
-const MainContainer = styled(Container)({
+const MainContainer = styled(Container)(({ theme }) => ({
   width: '80%',
-});
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+  },
+}));
 
 const ContactTitle = styled('h1')({
   textAlign: 'center',
 });
 
-const Form = styled('form')({
+const Form = styled('form')(({ theme }) => ({
   margin: 'auto',
   display: 'flex',
   flexDirection: 'column',
-  width: '80%',
-  padding: '10%',
-});
+  width: '100%',
+  padding: '10% 0',
+  [theme.breakpoints.down('md')]: {
+    padding: '10%',
+  },
+}));
 
-const SubmitButton = styled('button')({
+const SubmitButton = styled('button')(({ theme })=>({
+  cursor:'pointer',
   width: '50%',
   margin: '10% auto',
   background: 'transparent',
   boxShadow: 'none',
-  border: 'double 3px black',
-});
+  border: `double 3px ${theme.palette.primary.main}`,
+  color:theme.palette.text.primary
+}));
 
-const Input = styled('input')({
+const Input = styled('input')(({ theme }) => ({
   border: 'none',
-  borderBottom: 'double 3px black',
   outline: 'none',
-});
-const TextArea = styled('textarea')({
-  border: 'double 3px black',
+  borderBottom: `double 3px ${theme.palette.primary.main}`,
+  background:theme.palette.secondary.main,
+  color:theme.palette.text.primary
+}));
+
+const TextArea = styled('textarea')(({ theme })=>({
+  border: `double 3px ${theme.palette.primary.main}`,
+  background:theme.palette.secondary.main,
   outline: 'none',
   resize: 'none',
-});
+  color:theme.palette.text.primary
+}));
 
 interface IStatusProps {
   code: number;
@@ -80,11 +93,18 @@ const StatusMessage = ({ code }: IStatusProps) => {
   );
 };
 
+const Padd = () => (
+  <>
+    <br />
+    <br />
+  </>
+);
+
 const Contact = () => {
   const formRef = useRef(null);
   const currentStatusCode = useRef(0);
   const [showStatusMessage, setShowStatusMessage] = useState(false);
-
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const handleSubmit = async (e: FormEventHandler<HTMLFormElement> | any) => {
     e.preventDefault();
     if (formRef.current) {
@@ -94,7 +114,7 @@ const Contact = () => {
       const message = fd.get('message');
       if (email && message && name) {
         try {
-          const response = await fetch('http://localhost:3000/api/contact', {
+          const response = await fetch(`${BASE_URL}/api/contact`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
             body: JSON.stringify({ name, email, message }),
@@ -125,8 +145,10 @@ const Contact = () => {
       <Form ref={formRef} onSubmit={handleSubmit}>
         <label htmlFor="name-input">Your Name</label>
         <Input type="text" name="name" id="name-input" />
+        <Padd />
         <label htmlFor="email-input">Your Email</label>
         <Input name="email" id="email-input" />
+        <Padd />
         <label htmlFor="message-input">Your Message</label>
         <TextArea
           name="message"
@@ -135,6 +157,7 @@ const Contact = () => {
           cols={30}
           rows={10}
         />
+        <br />
         <SubmitButton type="submit">Send Message</SubmitButton>
       </Form>
       {showStatusMessage && <StatusMessage code={currentStatusCode.current} />}

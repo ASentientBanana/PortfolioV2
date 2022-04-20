@@ -1,14 +1,14 @@
-import Reat, { useRef, useState, useEffect, useContext } from 'react';
-import router, { useRouter } from 'next/router';
+import { useRef, useState, useEffect, useCallback }  from 'react';
 import { Container, styled } from '@mui/material';
 import { useNavigator } from '../../context/navbarStore';
 
 interface IProps {
   name: string;
   index: number;
+  noIndex?: boolean;
 }
 
-const TableOfContentsElement = ({ name, index }: IProps) => {
+const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
   const { currentPage, changePage } = useNavigator();
 
   const textContainerRef = useRef<HTMLDivElement>(null);
@@ -22,20 +22,23 @@ const TableOfContentsElement = ({ name, index }: IProps) => {
     changePage(index);
   };
 
-  const TextContainer = styled(Container)({
+  const TextContainer = styled(Container)(() => ({
     display: 'flex',
     marginBottom: '20px',
     fontWeight: 'bolder',
     width: '100%',
+    height: '1rem',
     ':after': {
-      content: index === currentPage ? '"◆"' : '""',
-      paddingLeft: '10px',
+      content: index === currentPage ? '"<"' : '""',
+      fontSize: '13px',
+      marginLeft: '10px',
     },
     ':before': {
-      content: index === currentPage ? '"◆"' : '""',
-      paddingRight: '10px',
+      content: index === currentPage ? '">"' : '""',
+      fontSize: '13px',
+      marginRight: '10px',
     },
-  });
+  }));
 
   const TOCDotsL = styled('span')(({ theme }) => ({
     [theme.breakpoints.up('lg')]: {
@@ -55,32 +58,32 @@ const TableOfContentsElement = ({ name, index }: IProps) => {
       display: 'none',
     },
   }));
-  
-  const setWidth = () => {
+
+  const SetWidth = useCallback(() =>{
     if (textContainerRef.current) {
       const _ = textContainerRef.current?.clientWidth / 12;
       if (textContainerRef.current?.clientWidth !== numberOfDots)
         setNumberOfDots(_);
     }
-  };
+  },[numberOfDots]);
 
   if (typeof window !== 'undefined') {
-    window.addEventListener('resize', setWidth);
+    window.addEventListener('resize', SetWidth);
   }
 
   useEffect(() => {
-    setWidth();
+    SetWidth();
     return () => {
-      window.removeEventListener('resize', setWidth);
+      window.removeEventListener('resize', SetWidth);
     };
-  }, [numberOfDots, currentPage]);
+  }, [numberOfDots, currentPage,SetWidth]);
   return (
     <MainContainer>
       <TextContainer ref={textContainerRef} onClick={selectPage}>
         <span>{name} </span>
         <TOCDotsL> {'.'.repeat(25 - name.length)}</TOCDotsL>
         <TOCDotsM> {'.'.repeat(14 - name.length)}</TOCDotsM>
-        <span>{index + 1}</span>
+        {noIndex ? null : <span>{index + 1}</span>}
       </TextContainer>
     </MainContainer>
   );

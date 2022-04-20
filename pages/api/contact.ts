@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 
-interface Data {}
+interface Data {
+  mailSent:true
+}
 
 const pass = process.env.EMAIL_PASSWORD;
 const user = process.env.EMAIL;
@@ -45,5 +47,5 @@ export default function (req: NextApiRequest, res: NextApiResponse<Data>) {
   } else {
     res.status(400);
   }
-  res.send(String());
+  res.send({mailSent:true});
 }

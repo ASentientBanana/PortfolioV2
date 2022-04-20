@@ -1,26 +1,59 @@
 [
     {
-        "name": "Sample 1",
-        "img": "",
-        "tech": ["React", "Node", "Next","JavaScript","C#"],
-        "description": ""
+        "name": "Sorting Algorithm Visualization",
+        "stack": [
+            "TypeScript",
+            "ReactJS",
+            "HTML",
+            "CSS",
+            "SCSS"
+        ],
+        "description": "A simple visualization of some of the sorting algorithms.",
+        "github": "https://github.com/ASentientBanana/SortingVisualiser",
+        "live": "https://www.sort.petarkocic.net",
+        "image": "/assets/sorting.jpg"
     },
     {
-        "name": "Petar 2",
-        "img": "",
-        "tech": ["React", "Node", "Next","JavaScript","C#"],
-        "description": ""
+        "name": "Path finding Algorithm Visualization",
+        "stack": [
+            "TypeScript",
+            "ReactJS",
+            "HTML",
+            "CSS",
+            "SCSS"
+        ],
+        "description": "A simple visualization of some of the pathfinding algorithms.",
+        "github": "https://github.com/ASentientBanana/pathfinding",
+        "live": "https://www.pathfinding.petarkocic.net",
+        "image": "/assets/pathfinding.jpg"
     },
     {
-        "name": "Anime Calculator",
-        "img": "",
-        "tech": ["React", "Node", "Next","JavaScript","C#"],
-        "description": ""
+        "name": "Gear mesh",
+        "stack": [
+            "TypeScript",
+            "Vue",
+            "HTML",
+            "CSS",
+            "SCSS"
+        ],
+        "description": "A Visual representation of a simplified gear mesh.",
+        "github": "https://github.com/ASentientBanana/gears",
+        "live": "https://www.gears.petarkocic.net",
+        "image": "/assets/gears.jpg"
     },
     {
-        "name": "Petar 3",
-        "img": "",
-        "tech": ["React", "Node", "Next","JavaScript","C#"],
-        "description": ""
+        "name": "Portfolio V1",
+        "stack": [
+            "TypeScript",
+            "Vue",
+            "HTML",
+            "CSS",
+            "SCSS",
+            "Node"
+        ],
+        "description": "First Version of my portfolio.",
+        "github": "https://github.com/ASentientBanana/PortfolioV1",
+        "live":"",
+        "image": "/assets/portfolioV1.jpg"
     }
 ]

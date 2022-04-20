@@ -1,6 +1,6 @@
 import { styled, Container } from '@mui/material';
 import { useNavigator } from '../../context/navbarStore';
-import { IProjects } from '../../types';
+import { IProject } from '../../types';
 import About from './about';
 import Contact from './contact';
 import Projects from './projects';
@@ -12,7 +12,7 @@ const MainContainer = styled(Container)(({ theme }) => ({
   height: '100%',
 }));
 
-const Sections = ({ projects }: { projects: IProjects[] }) => {
+const Sections = ({ projects }: { projects: IProject[] }) => {
   const { currentPage } = useNavigator();
   const renderSection = () => {
     switch (currentPage) {
