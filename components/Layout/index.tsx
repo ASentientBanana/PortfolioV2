@@ -19,11 +19,11 @@ const MainContainer = styled('div')(({ theme }) => ({
     justifyContent: 'start',
 }));
 
+export const PAGES = ['About', 'Contact', 'Projects']
 
 const Layout = ({ children }: IProps) => {
 
     const [openDrawer, setOpenDrawer] = useState(false);
-
 
     return (
         <MainContainer>

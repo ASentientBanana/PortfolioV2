@@ -1,6 +1,6 @@
 import { Container, styled } from '@mui/material';
 import TableOfContentsElement from './TableOfContentsElement';
-import { useNavigator } from './../../context/navbarStore';
+import { PAGES } from '../Layout';
 import ThemePalette from '../ThemePalette';
 
 const MainContainer = styled(Container)(({ theme }) => ({
@@ -19,7 +19,6 @@ const MainContainer = styled(Container)(({ theme }) => ({
 
 const TableOfContents = () => {
 
-  const { pages } = useNavigator();
   const TOCTitle = styled('h1')({
     textAlign: 'center',
     marginBottom: '50px',
@@ -28,7 +27,7 @@ const TableOfContents = () => {
   return (
     <MainContainer>
       <TOCTitle>Table Of Contents</TOCTitle>
-      {pages.map((page, index) => (
+      {PAGES.map((page, index) => (
         <TableOfContentsElement name={page} index={index} key={index} />
       ))}
       <ThemePalette />

@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { Container, styled } from '@mui/material';
-import { useNavigator } from '../../context/navbarStore';
 import { useRouter } from 'next/dist/client/router';
 
 interface IProps {
@@ -10,7 +9,6 @@ interface IProps {
 }
 
 const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
-  const { currentPage, changePage } = useNavigator();
   const router = useRouter();
 
   const textContainerRef = useRef<HTMLDivElement>(null);
@@ -20,8 +18,9 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     userSelect: 'none',
   });
 
+  const selected = router.pathname === `/${name}`.toLowerCase();
+
   const selectPage = (pageName: string) => {
-    changePage(index);
     router.push(pageName.toLowerCase())
   };
 
@@ -32,12 +31,12 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     width: '100%',
     height: '1rem',
     ':after': {
-      content: index === currentPage ? '"<"' : '""',
+      content: selected ? '"<"' : '""',
       fontSize: '13px',
       marginLeft: '10px',
     },
     ':before': {
-      content: index === currentPage ? '">"' : '""',
+      content: selected ? '">"' : '""',
       fontSize: '13px',
       marginRight: '10px',
     },
@@ -79,7 +78,7 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     return () => {
       window.removeEventListener('resize', SetWidth);
     };
-  }, [numberOfDots, currentPage, SetWidth]);
+  }, [numberOfDots, SetWidth]);
   return (
     <MainContainer>
       <TextContainer ref={textContainerRef} onClick={() => selectPage(name)}>

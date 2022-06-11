@@ -118,7 +118,6 @@ const Contact = ({ baseUrl }: { baseUrl: string }) => {
             const email = fd.get('email');
             const message = fd.get('message');
             if (email && message && name) {
-                console.log(`${baseUrl}/portfolio/contact-me`);
                 try {
                     // const response = await fetch(`${BASE_URL}/api/contact`, {
                     const response = await fetch(`${baseUrl}/portfolio/contact-me/`, {
@@ -126,9 +125,6 @@ const Contact = ({ baseUrl }: { baseUrl: string }) => {
                         headers: { 'Content-type': 'application/json' },
                         body: JSON.stringify({ name, email, message }),
                     });
-                    console.log(await response.json());
-
-                    const status = await response.status;
                     _showStatusMessage(200);
                 } catch (error) {
                     console.error(error);

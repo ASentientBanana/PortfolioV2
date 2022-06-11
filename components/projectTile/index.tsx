@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const ProjectTile = ({ project, baseURl }: IProps) => {
-  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const MainContainer = styled(Container)(({ theme }) => ({
     border: `double 3px ${theme.palette.primary.main}`,
     minHeight: '270px',
@@ -76,7 +75,6 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
   const Separator = styled('hr')(({ theme }) => ({
     border: `1px solid ${theme.palette.primary.main}`
   }))
-  console.log(`${baseURl}/${project.image}`);
 
   return (
     <MainContainer>
@@ -104,8 +102,8 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
       </TechContainer>
       <Separator />
       <LinkContainer>
-        {project.github && <Link href={project.github}>GitHub</Link>}
-        {project.live && <Link href={project.live}>Live Project</Link>}
+        {(project.github && project.github !== 'Null') && <Link href={project.github}>GitHub</Link>}
+        {(project.live && project.live !== 'Null') && <Link href={project.live}>Live Project</Link>}
       </LinkContainer>
       <Separator />
       <DescriptionContainer>

@@ -1,14 +1,13 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { ThemeContextProvider } from '../context/themeStore';
-import { NavContextProvider } from '../context/navbarStore';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
   return (
-    <NavContextProvider>
+    <>
       <Head>
         <title>Petar Kocic</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,7 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </Layout>
       </ThemeContextProvider>
-    </NavContextProvider>
+    </>
   );
 }
 

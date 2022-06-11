@@ -27,6 +27,7 @@ export async function getServerSideProps() {
 const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: string }) => {
     const MainContainer = styled(Container)({
         width: '100%',
+        overflowY: 'scroll',
     });
 
     const ProjectsTitle = styled('h1')(() => ({
