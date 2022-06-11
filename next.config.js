@@ -4,10 +4,10 @@ module.exports = {
     PROJECT_ROOT: __dirname,
   },
   env: {
-    BASE_URL: 'http://127.0.0.1:8000'
+    BASE_URL: 'https://admin.petarkocic.net'
   },
   images: {
-    domains: ['127.0.0.1', 'petarkocic.net']
+    domains: ['127.0.0.1', 'petarkocic.net','admin.petarkocic.net']
   },
   reactStrictMode: true,
   async redirects() {
