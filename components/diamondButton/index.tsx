@@ -26,7 +26,7 @@ const DiamondButton = ({
     height: '35px',
     cursor: 'pointer',
     transform: ' rotate(45deg)',
-    zIndex:2,
+    zIndex: 2,
     [theme.breakpoints.down('md')]: {
       display: onlyOnMobile ? 'block' : 'none',
     },
@@ -38,7 +38,7 @@ const DiamondButton = ({
   const Content = styled('div')({
     transform: 'rotate(-45deg)',
     fontWeight: 'bolder',
-    fontSize: '1.5rem',
+    fontSize: '20px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

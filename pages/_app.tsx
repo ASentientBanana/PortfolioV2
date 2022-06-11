@@ -3,11 +3,13 @@ import type { AppProps } from 'next/app';
 import { ThemeContextProvider } from '../context/themeStore';
 import { NavContextProvider } from '../context/navbarStore';
 import Head from 'next/head';
+import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <NavContextProvider>
-       <Head>
+      <Head>
         <title>Petar Kocic</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -17,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeContextProvider>
+        <Layout>
           <Component {...pageProps} />
+        </Layout>
       </ThemeContextProvider>
     </NavContextProvider>
   );

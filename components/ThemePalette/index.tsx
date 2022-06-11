@@ -5,13 +5,12 @@ import ThemeButton from './ThemeButton';
 const PaletteContainer = styled(Container)(({ theme })=>({
     display:'flex',
     justifyContent:'space-evenly',
-    padding:'5px 10px',
+    padding:'5px 15px',
     position:'absolute',
     bottom:'10px',
     right:'10px',
-    height:'60px',
-    gap:'5px',
-    background:'rgba(113,113,113,0.1)',
+    height:'50px',
+    background:'rgba(113,113,113,0.2)',
 }));
 
 const MainContainer = styled(Container)(({ theme })=>({

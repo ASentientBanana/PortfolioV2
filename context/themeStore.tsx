@@ -102,6 +102,9 @@ const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
   const setTheme = (theme: string) =>{
     if(Object.keys(availableThemes).includes(theme))
       setThemeState({currentTheme:availableThemes[theme]});
+      if(typeof window !== 'undefined'){
+        sessionStorage.setItem('kole-profile-theme',theme);
+      }
     else
       setThemeState({currentTheme:availableThemes.nordFrost});
   } 

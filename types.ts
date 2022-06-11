@@ -5,7 +5,7 @@ export interface IProjectLink {
 
 export interface IProjectIncoming {
   name: string;
-  stack: string[];
+  stack: string;
   description: string;
   live: string;
   github: string;
@@ -14,7 +14,7 @@ export interface IProjectIncoming {
 }
 export interface IProject {
   name: string;
-  stack: string[];
+  stack: string;
   description: string;
   live: string;
   github: string;

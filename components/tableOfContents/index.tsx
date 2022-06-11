@@ -1,13 +1,12 @@
 import { Container, styled } from '@mui/material';
 import TableOfContentsElement from './TableOfContentsElement';
 import { useNavigator } from './../../context/navbarStore';
-import { useTheme } from '../../context/themeStore';
 import ThemePalette from '../ThemePalette';
 
 const MainContainer = styled(Container)(({ theme }) => ({
   height: '100%',
   width: '35%',
-  position:'relative',
+  position: 'relative',
   borderRight: `5px double ${theme.palette.primary.main}`,
   padding: ' 0 20px !important',
   margin: 0,
@@ -20,8 +19,7 @@ const MainContainer = styled(Container)(({ theme }) => ({
 
 const TableOfContents = () => {
 
-const { pages } = useNavigator();
-  const { setTheme, currentTheme } = useTheme();
+  const { pages } = useNavigator();
   const TOCTitle = styled('h1')({
     textAlign: 'center',
     marginBottom: '50px',
@@ -33,7 +31,7 @@ const { pages } = useNavigator();
       {pages.map((page, index) => (
         <TableOfContentsElement name={page} index={index} key={index} />
       ))}
-      <ThemePalette />      
+      <ThemePalette />
     </MainContainer>
   );
 };

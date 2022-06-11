@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect, useCallback }  from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { Container, styled } from '@mui/material';
 import { useNavigator } from '../../context/navbarStore';
+import { useRouter } from 'next/dist/client/router';
 
 interface IProps {
   name: string;
@@ -10,6 +11,7 @@ interface IProps {
 
 const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
   const { currentPage, changePage } = useNavigator();
+  const router = useRouter();
 
   const textContainerRef = useRef<HTMLDivElement>(null);
   const [numberOfDots, setNumberOfDots] = useState<number>(20);
@@ -18,8 +20,9 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     userSelect: 'none',
   });
 
-  const selectPage = () => {
+  const selectPage = (pageName: string) => {
     changePage(index);
+    router.push(pageName.toLowerCase())
   };
 
   const TextContainer = styled(Container)(() => ({
@@ -59,13 +62,13 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     },
   }));
 
-  const SetWidth = useCallback(() =>{
+  const SetWidth = useCallback(() => {
     if (textContainerRef.current) {
       const _ = textContainerRef.current?.clientWidth / 12;
       if (textContainerRef.current?.clientWidth !== numberOfDots)
         setNumberOfDots(_);
     }
-  },[numberOfDots]);
+  }, [numberOfDots]);
 
   if (typeof window !== 'undefined') {
     window.addEventListener('resize', SetWidth);
@@ -76,11 +79,11 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     return () => {
       window.removeEventListener('resize', SetWidth);
     };
-  }, [numberOfDots, currentPage,SetWidth]);
+  }, [numberOfDots, currentPage, SetWidth]);
   return (
     <MainContainer>
-      <TextContainer ref={textContainerRef} onClick={selectPage}>
-        <span>{name} </span>
+      <TextContainer ref={textContainerRef} onClick={() => selectPage(name)}>
+        <span>{name}</span>
         <TOCDotsL> {'.'.repeat(25 - name.length)}</TOCDotsL>
         <TOCDotsM> {'.'.repeat(14 - name.length)}</TOCDotsM>
         {noIndex ? null : <span>{index + 1}</span>}

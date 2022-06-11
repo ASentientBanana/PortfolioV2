@@ -16,11 +16,7 @@
     {
         "name": "Path finding Algorithm Visualization",
         "stack": [
-            "TypeScript",
-            "ReactJS",
-            "HTML",
-            "CSS",
-            "SCSS"
+            "TypeScript,ReactJS,HTML,CSS,SCSS"
         ],
         "description": "A simple visualization of some of the pathfinding algorithms.",
         "github": "https://github.com/ASentientBanana/pathfinding",

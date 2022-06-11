@@ -5,9 +5,11 @@ import Link from 'next/link';
 
 interface IProps {
   project: IProject;
+  baseURl: string;
 }
 
-const ProjectTile = ({ project }: IProps) => {
+const ProjectTile = ({ project, baseURl }: IProps) => {
+  const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
   const MainContainer = styled(Container)(({ theme }) => ({
     border: `double 3px ${theme.palette.primary.main}`,
     minHeight: '270px',
@@ -57,40 +59,45 @@ const ProjectTile = ({ project }: IProps) => {
   });
 
   const DescriptionContainer = styled('p')(() => ({
-      padding:'0 10px'
+    padding: '0 10px'
   }));
+
+  const SectionTitle = styled('span')({
+    padding: '0 10px'
+  })
 
   const LinkContainer = styled(Container)({
     minHeight: '30px',
     display: 'flex',
     width: '100%',
-    justifyContent:'space-evenly'
+    justifyContent: 'space-evenly'
   });
-  
-  const Separator = styled('hr')(({ theme })=>({
-    border:`1px solid ${theme.palette.primary.main}`
+
+  const Separator = styled('hr')(({ theme }) => ({
+    border: `1px solid ${theme.palette.primary.main}`
   }))
+  console.log(`${baseURl}/${project.image}`);
 
   return (
     <MainContainer>
       <ImageContainer>
         <Image
-          src={project.image ? project.image : '/assets/default.jpg'}
+          src={project.image ? `${baseURl}/${project.image}` : '/assets/default.jpg'}
           layout="fill"
           objectFit="contain"
           alt="user image"
         />
       </ImageContainer>
       <br />
-      <span>Project: </span>
+      <SectionTitle>Project: </SectionTitle>
       {project.name}
       <br />
       <Separator />
-      <span>Tech Stack</span>
+      <SectionTitle>Tech Stack</SectionTitle>
       <br />
       <TechContainer>
         {project.stack &&
-          project.stack.map(
+          project.stack.split(',').map(
             (tech, index) =>
               tech && <ListItem key={`${tech}-${index}`}>{tech}</ListItem>
           )}
