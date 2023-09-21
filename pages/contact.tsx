@@ -1,5 +1,6 @@
 import { styled, Container } from '@mui/material';
 import React, { FormEventHandler, useRef, useState } from 'react';
+import { PageTitle } from '../components/pageTitle';
 
 
 export const getServerSideProps = async () => {
@@ -37,6 +38,7 @@ const Form = styled('form')(({ theme }) => ({
 const SubmitButton = styled('button')(({ theme }) => ({
     cursor: 'pointer',
     width: '50%',
+    height: '3rem',
     margin: '10% auto',
     background: 'transparent',
     boxShadow: 'none',
@@ -80,6 +82,10 @@ const statuses: IStatus = {
         message: 'Please make sure to fill out all the fields.',
         color: 'red',
     },
+    406: {
+        message: 'Please make sure the email is valid.',
+        color: 'red',
+    },
     500: {
         message: 'Server error, please try again later. Thank you.',
         color: 'red',
@@ -104,57 +110,64 @@ const StatusMessage = ({ code }: IStatusProps) => {
     );
 };
 
-const Padding = () => (<><br /><br /></>);
 
 const Contact = ({ baseUrl }: { baseUrl: string }) => {
-    const formRef = useRef(null);
-    const currentStatusCode = useRef(0);
-    const [showStatusMessage, setShowStatusMessage] = useState(false);
+    const [errorCode, setErrorCode] = useState<number | null>();
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [name, setName] = useState('');
+
     const handleSubmit = async (e: FormEventHandler<HTMLFormElement> | any) => {
         e.preventDefault();
-        if (formRef.current) {
-            const fd = new FormData(formRef.current);
-            const name = fd.get('name');
-            const email = fd.get('email');
-            const message = fd.get('message');
-            if (email && message && name) {
-                try {
-                    // const response = await fetch(`${BASE_URL}/api/contact`, {
-                    const response = await fetch(`${baseUrl}/portfolio/contact-me/`, {
-                        method: 'POST',
-                        headers: { 'Content-type': 'application/json' },
-                        body: JSON.stringify({ name, email, message }),
-                    });
-                    _showStatusMessage(200);
-                } catch (error) {
-                    console.error(error);
-                }
-            } else {
-                _showStatusMessage(400);
+        if (!(email && message && name)) {
+            _showStatusMessage(400);
+            return
+        }
+        const regex = new RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$')
+        if (!(regex.exec(email))) {
+            _showStatusMessage(406);
+            return
+        }
+        try {
+            // const response = await fetch(`${BASE_URL}/api/contact`, {
+            const response = await fetch(`${baseUrl}/portfolio/contact-me/`, {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({ name, email, message }),
+            });
+            if (!response.ok) {
+                _showStatusMessage(500);
+                return;
             }
+            _showStatusMessage(200);
+        } catch (error) {
+            console.error(error);
+            _showStatusMessage(500);
         }
     };
 
     const _showStatusMessage = (code: number) => {
-        currentStatusCode.current = code;
-        setShowStatusMessage(true);
+        setErrorCode(code);
+
         setTimeout(() => {
-            setShowStatusMessage(false);
-        }, 6000);
+            setErrorCode(null);
+        }, 2000);
     };
 
     return (
         <MainContainer>
-            <ContactTitle>Contact Me</ContactTitle>
-            <Form ref={formRef} onSubmit={handleSubmit}>
-                <label htmlFor="name-input">Your Name</label>
-                <Input autoComplete='off' type="text" name="name" id="name-input" />
-                <Padding />
-                <label htmlFor="email-input">Your Email</label>
-                <Input name="email" id="email-input" autoComplete='off' />
-                <Padding />
-                <label htmlFor="message-input">Your Message</label>
+            <PageTitle>Contact Me</PageTitle>
+            <Form onSubmit={handleSubmit}>
+                <Input placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off' type="text" name="name" id="name-input" />
+                <br />
+                <br />
+                <Input placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)} name="email" type='email' id="email-input" autoComplete='off' />
+                <br />
+                <br />
                 <TextArea
+                    placeholder='Your Message'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     name="message"
                     id="message-input"
                     contentEditable={false}
@@ -162,9 +175,9 @@ const Contact = ({ baseUrl }: { baseUrl: string }) => {
                     rows={10}
                 />
                 <br />
-                <SubmitButton type="submit">Send Message</SubmitButton>
+                <SubmitButton disabled={!!errorCode} type="submit">Send Message</SubmitButton>
             </Form>
-            {showStatusMessage && <StatusMessage code={currentStatusCode.current} />}
+            {errorCode && <StatusMessage code={errorCode} />}
         </MainContainer>
     );
 };

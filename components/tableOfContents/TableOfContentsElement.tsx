@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Container, styled } from '@mui/material';
+import { Button, Container, styled } from '@mui/material';
 import { useRouter } from 'next/dist/client/router';
 
 interface IProps {
@@ -11,12 +11,10 @@ interface IProps {
 const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
   const router = useRouter();
 
-  const textContainerRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLButtonElement>(null);
   const [numberOfDots, setNumberOfDots] = useState<number>(20);
-  const MainContainer = styled(Container)({
-    cursor: 'pointer',
-    userSelect: 'none',
-  });
+
+
 
   const selected = router.pathname === `/${name}`.toLowerCase();
 
@@ -24,20 +22,24 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     router.push(pageName.toLowerCase())
   };
 
-  const TextContainer = styled(Container)(() => ({
+  const TextContainer = styled(Button)(() => ({
     display: 'flex',
     marginBottom: '20px',
     fontWeight: 'bolder',
+    justifyContent: 'start',
     width: '100%',
     height: '1rem',
+    fontSize: '20px',
+    paddingX: '5px',
+    paddingY: '10px',
     ':after': {
       content: selected ? '"<"' : '""',
-      fontSize: '13px',
+      fontSize: '16px',
       marginLeft: '10px',
     },
     ':before': {
       content: selected ? '">"' : '""',
-      fontSize: '13px',
+      fontSize: '16px',
       marginRight: '10px',
     },
   }));
@@ -49,6 +51,9 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     [theme.breakpoints.down('lg')]: {
       display: 'none',
     },
+    ':hover': {
+      backgroundColor: 'transparent'
+    }
   }));
 
   const TOCDotsM = styled('span')(({ theme }) => ({
@@ -80,14 +85,12 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     };
   }, [numberOfDots, SetWidth]);
   return (
-    <MainContainer>
-      <TextContainer ref={textContainerRef} onClick={() => selectPage(name)}>
-        <span>{name}</span>
-        <TOCDotsL> {'.'.repeat(25 - name.length)}</TOCDotsL>
-        <TOCDotsM> {'.'.repeat(14 - name.length)}</TOCDotsM>
-        {noIndex ? null : <span>{index + 1}</span>}
-      </TextContainer>
-    </MainContainer>
+    <TextContainer ref={textContainerRef} onClick={() => selectPage(name)}>
+      <span>{name}</span>
+      <TOCDotsL> {'.'.repeat(25 - name.length)}</TOCDotsL>
+      <TOCDotsM> {'.'.repeat(14 - name.length)}</TOCDotsM>
+      {noIndex ? null : <span>{index + 1}</span>}
+    </TextContainer>
   );
 };
 

@@ -14,31 +14,37 @@ const DiamondButton = ({
   onlyOnMobile,
 }: IProps) => {
 
-  const Button = styled('button')(({ theme }) => ({
-    background: 'transparent',
-    position: 'absolute',
-    border: ` ${theme.palette.primary.main} 3px double`,
-    color:theme.palette.primary.main,
-    top: '20px',
-    left: verticalAlign === 'left' ? '15px' : '',
-    right: verticalAlign === 'right' ? '15px' : '',
-    width: '35px',
-    height: '35px',
-    cursor: 'pointer',
-    transform: ' rotate(45deg)',
-    zIndex: 2,
-    [theme.breakpoints.down('md')]: {
-      display: onlyOnMobile ? 'block' : 'none',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: onlyOnMobile ? 'none' : 'block',
-    },
-  }));
+  const Button = styled('button')(({ theme }) => {
+    const SIZE = '30px';
+    const TOP_OFFSET = '20px';
+    const SIDE_OFFSET = '15px';
+
+    return ({
+      background: 'transparent',
+      position: 'absolute',
+      border: ` ${theme.palette.primary.main} 3px double`,
+      color: theme.palette.primary.main,
+      top: TOP_OFFSET,
+      left: verticalAlign === 'left' ? SIDE_OFFSET : '',
+      right: verticalAlign === 'right' ? SIDE_OFFSET : '',
+      width: SIZE,
+      height: SIZE,
+      cursor: 'pointer',
+      transform: ' rotate(45deg)',
+      zIndex: 2,
+      [theme.breakpoints.down('md')]: {
+        display: onlyOnMobile ? 'block' : 'none',
+      },
+      [theme.breakpoints.up('md')]: {
+        display: onlyOnMobile ? 'none' : 'block',
+      },
+    })
+  });
 
   const Content = styled('div')({
     transform: 'rotate(-45deg)',
     fontWeight: 'bolder',
-    fontSize: '20px',
+    fontSize: 'px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

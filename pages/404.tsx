@@ -2,7 +2,6 @@ import { styled, Container } from '@mui/material';
 
 const MainContainer = styled(Container)(({ theme }) => ({
     width: '100%',
-    border: 'solid 1px red',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

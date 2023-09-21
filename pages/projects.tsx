@@ -1,12 +1,23 @@
 import { Container, styled } from '@mui/material';
 import ProjectTile from '../components/projectTile';
 import { IProject } from '../types';
+import { PageTitle } from '../components/pageTitle';
 
 export async function getServerSideProps() {
+    const defaultReturn = {
+        props: {
+            baseURL: '',
+            projects: [],
+        },
+    };
     try {
         const baseUrl = process.env.BASE_URL;
         const response = await fetch(`${baseUrl}/portfolio/get-projects`);
         const projectData = await response.json();
+
+        if (!response.ok) {
+            return defaultReturn;
+        }
         return {
             props: {
                 baseUrl,
@@ -15,12 +26,7 @@ export async function getServerSideProps() {
         };
     } catch (error) {
         console.error(error);
-        return {
-            props: {
-                baseURL: '',
-                projects: [],
-            },
-        };
+        return defaultReturn;
     }
 }
 
@@ -30,9 +36,7 @@ const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: str
         overflowY: 'scroll',
     });
 
-    const ProjectsTitle = styled('h1')(() => ({
-        textAlign: 'center',
-    }));
+
 
     const ContentContainer = styled(Container)(({ theme }) => ({
         display: 'grid',
@@ -50,7 +54,7 @@ const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: str
 
     return (
         <MainContainer>
-            <ProjectsTitle>Projects</ProjectsTitle>
+            <PageTitle>Personal projects</PageTitle>
             <ContentContainer>
                 {projects.map((project, index) => (
                     <ProjectTile key={index} baseURl={baseUrl} project={project} />

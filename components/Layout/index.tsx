@@ -11,6 +11,7 @@ interface IProps {
 const MainContainer = styled('div')(({ theme }) => ({
     width: '100vw',
     height: '100vh',
+    overflowY: 'auto',
     background: theme.palette.secondary.main,
     color: theme.palette.text.primary,
     position: 'relative',

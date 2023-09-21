@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { styled, Container } from '@mui/material';
+import { PageTitle } from '../components/pageTitle';
 
 const ImageContainer = styled(Container)(({ theme }) => ({
     height: '158px',
@@ -36,23 +37,25 @@ const MainContainer = styled(Container)(({ theme }) => ({
 const ContentContainer = styled(Container)({});
 const TechContainer = styled(Container)({});
 
-const TitleText = styled('h1')({
-    textAlign: 'center',
-});
 
 const listOfTech = [
-    { name: 'React' },
-    { name: 'React Native' },
-    { name: 'NextJS' },
-    { name: 'Firebase' },
-    { name: 'Unity3D' },
-    { name: 'NodeJS' },
+    'React',
+    'React Native',
+    'NextJS',
+    'Go',
+    'Typescript',
+    'NodeJS',
+    'Flutter',
+    'C#',
+    'VueJS',
+    'Firebase',
+    'Unity3D',
 ];
 
 const About = () => {
     return (
         <MainContainer>
-            <TitleText>About Me</TitleText>
+            <PageTitle>About Me</PageTitle>
             <ContentContainer>
                 <ImageContainer>
                     <ImageMe
@@ -64,27 +67,23 @@ const About = () => {
                     />
                 </ImageContainer>
                 <AboutText>
-                    Currently i am working as a developer using technologies mostly
-                    centered around front end development.
+                    My name is Petar Kocic, and I am a developer with a fervent passion for innovation and technology.
+                    I find immense joy in the process of creating, building, and experimenting with various technologies.
+                    My journey in the tech realm has been one of continuous growth and learning.
                 </AboutText>
                 <AboutText>
-                    Aside from that i also used to work as a game developer working in
-                    Unity3D and C# where i worked on Android and IOS Games.
+                    I worked in a wide variety of positions, teams and projects.
+                    <br />I started out as a freelancer front end developer, went to game dev and unity than back to web dev.
+                    <br /><br />During my career i had the opertunity to be in a position of a dev, project manager to CTO.
                 </AboutText>
                 <section>
-                    <AboutText>Tech i worked with:</AboutText>
+                    <AboutText>Tech i used:</AboutText>
                     <TechContainer>
-                        {listOfTech.map((tech, index) => (
-                            <span key={index}>{tech.name}, </span>
+                        {listOfTech.map((tech) => (
+                            <span key={tech}>{tech}</span>
                         ))}
                     </TechContainer>
                 </section>
-                <AboutText>
-                    I am currently going to University for mechanical engineering majoring
-                    in mechanical design. A lot of math and geometry and it sometimes
-                    inspires some of the visualizations and calculations and in some of my
-                    side projects.
-                </AboutText>
                 <AboutText>
                     Along with programming i also love learning about, tinkering with and
                     using linux (and yes i do use Arch Btw).
