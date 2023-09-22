@@ -58,7 +58,7 @@ const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: str
             <ContentContainer>
                 {projects.map((project, index) => (
                     <ProjectTile key={index} baseURl={baseUrl} project={project} />
-                ))}
+                )).reverse()}
             </ContentContainer>
         </MainContainer>
     );

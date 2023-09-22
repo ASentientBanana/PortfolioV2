@@ -3,6 +3,7 @@ import DiamondButton from '../diamondButton';
 import TableOfContents from '../tableOfContents';
 import { useState, ReactChild } from 'react';
 import { styled } from '@mui/material';
+import ResumeButton from '../resumeButton';
 
 interface IProps {
     children: ReactChild
@@ -35,6 +36,7 @@ const Layout = ({ children }: IProps) => {
                 text="☰"
             />
             <SideNav open={openDrawer} setOpen={setOpenDrawer} />
+            <ResumeButton />
             <TableOfContents />
             {children}
         </MainContainer>

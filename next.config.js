@@ -4,10 +4,11 @@ module.exports = {
     PROJECT_ROOT: __dirname,
   },
   env: {
-    BASE_URL: 'https://admin.petarkocic.net'
+    BASE_URL: 'https://admin.petarkocic.net',
+    NEXT_PUBLIC_SITE_URL: 'https://petarkocic.net'
   },
   images: {
-    domains: ['127.0.0.1', 'petarkocic.net','admin.petarkocic.net']
+    domains: ['127.0.0.1', 'petarkocic.net', 'admin.petarkocic.net']
   },
   reactStrictMode: true,
   async redirects() {

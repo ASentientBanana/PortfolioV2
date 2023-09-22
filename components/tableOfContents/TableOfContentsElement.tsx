@@ -22,16 +22,19 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     router.push(pageName.toLowerCase())
   };
 
-  const TextContainer = styled(Button)(() => ({
+  const TextContainer = styled(Button)(({ theme }) => ({
     display: 'flex',
     marginBottom: '20px',
     fontWeight: 'bolder',
-    justifyContent: 'start',
+    justifyContent: 'center',
     width: '100%',
     height: '1rem',
     fontSize: '20px',
     paddingX: '5px',
     paddingY: '10px',
+    [theme.breakpoints.down('md')]: {
+      justifyContent: 'start',
+    },
     ':after': {
       content: selected ? '"<"' : '""',
       fontSize: '16px',

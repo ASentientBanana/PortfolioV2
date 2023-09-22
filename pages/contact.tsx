@@ -31,8 +31,9 @@ const Form = styled('form')(({ theme }) => ({
     width: '100%',
     padding: '10% 0',
     [theme.breakpoints.down('md')]: {
-        padding: '10%',
+//         padding: '10px',
     },
+
 }));
 
 const SubmitButton = styled('button')(({ theme }) => ({
@@ -49,6 +50,8 @@ const SubmitButton = styled('button')(({ theme }) => ({
 const Input = styled('input')(({ theme }) => ({
     border: 'none',
     outline: 'none',
+    marginBottom:'2rem',
+    minWidth:0,
     borderBottom: `double 3px ${theme.palette.primary.main}`,
     background: theme.palette.secondary.main,
     color: theme.palette.text.primary,
@@ -159,11 +162,9 @@ const Contact = ({ baseUrl }: { baseUrl: string }) => {
             <PageTitle>Contact Me</PageTitle>
             <Form onSubmit={handleSubmit}>
                 <Input placeholder='Your Name' value={name} onChange={(e) => setName(e.target.value)} autoComplete='off' type="text" name="name" id="name-input" />
-                <br />
-                <br />
+
                 <Input placeholder='Your Email' value={email} onChange={(e) => setEmail(e.target.value)} name="email" type='email' id="email-input" autoComplete='off' />
-                <br />
-                <br />
+
                 <TextArea
                     placeholder='Your Message'
                     value={message}

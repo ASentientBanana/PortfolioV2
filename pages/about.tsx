@@ -35,7 +35,18 @@ const MainContainer = styled(Container)(({ theme }) => ({
 }));
 
 const ContentContainer = styled(Container)({});
-const TechContainer = styled(Container)({});
+const TechContainer = styled(Container)(({ theme }) => ({
+    maxWidth: '80%',
+    textAlign: 'left',
+    [theme.breakpoints.up('md')]: {
+        maxWidth: '70%',
+
+    },
+    [theme.breakpoints.down('sm')]: {
+        maxWidth: '100%',
+
+    },
+}));
 
 
 const listOfTech = [
@@ -70,17 +81,15 @@ const About = () => {
                     My name is Petar Kocic, and I am a developer with a fervent passion for innovation and technology.
                     I find immense joy in the process of creating, building, and experimenting with various technologies.
                     My journey in the tech realm has been one of continuous growth and learning.
-                </AboutText>
-                <AboutText>
-                    I worked in a wide variety of positions, teams and projects.
+
                     <br />I started out as a freelancer front end developer, went to game dev and unity than back to web dev.
-                    <br /><br />During my career i had the opertunity to be in a position of a dev, project manager to CTO.
+                    During my career i had the opertunity to be in a position of a dev, project manager to CTO while still having to program daily.
                 </AboutText>
                 <section>
                     <AboutText>Tech i used:</AboutText>
                     <TechContainer>
                         {listOfTech.map((tech) => (
-                            <span key={tech}>{tech}</span>
+                            <span key={tech}>{tech}, </span>
                         ))}
                     </TechContainer>
                 </section>
