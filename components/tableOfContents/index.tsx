@@ -2,8 +2,6 @@ import { Container, styled } from '@mui/material';
 import TableOfContentsElement from './TableOfContentsElement';
 import { PAGES } from '../Layout';
 import ThemePalette from '../ThemePalette';
-import { useContext, useState } from 'react';
-import { WindowSizeContext } from '../../context/window';
 
 
 

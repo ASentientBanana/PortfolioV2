@@ -90,7 +90,7 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
       <ImageContainer>
         {
           (project.live !== 'Null' || project.github !== 'Null') ?
-            <a target='_blank' href={project.live !== 'Null' ? project.live : project.github}>
+            <a target='_blank' rel="noreferrer" href={project.live !== 'Null' ? project.live : project.github}>
               <CustomImage
                 src={project.image ? `${baseURl}/${project.image}` : '/assets/default.jpg'}
                 layout="fill"
