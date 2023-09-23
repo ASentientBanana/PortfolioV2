@@ -14,7 +14,7 @@ const LinkWrapper = ({ children, shouldWrap, name }: { shouldWrap?: boolean, chi
 
   if (shouldWrap) {
     return (
-      <a style={{ textDecoration: 'none' }} href={`${`${siteUrl}/assets/resume.pdf`}`} target={"_blank"} rel="noopener noreferrer">
+      <a style={{ textDecoration: 'none' }} href={`${`${siteUrl}/assets/resume.pdf`}`} target={"_blank"} rel="noreferrer">
         {children}
       </a>
 
