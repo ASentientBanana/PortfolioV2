@@ -1,37 +1,57 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { Button, Container, styled } from '@mui/material';
+import { useRef, useState, useEffect, useCallback, ReactNode } from 'react';
+import { Button, Container, styled, } from '@mui/material';
 import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 
 interface IProps {
   name: string;
   index: number;
-  noIndex?: boolean;
+  isResumeLink?: boolean;
 }
 
-const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
+const LinkWrapper = ({ children, shouldWrap, name }: { shouldWrap?: boolean, children: JSX.Element, name: string }) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+  if (shouldWrap) {
+    return (
+      <a style={{ textDecoration: 'none' }} href={`${`${siteUrl}/assets/resume.pdf`}`} target={"_blank"} rel="noopener noreferrer">
+        {children}
+      </a>
+
+    )
+  }
+  return (
+    <Link passHref href={shouldWrap ? `${`${siteUrl}/assets/resume.pdf`}` : `/${name.toLowerCase()}`}>
+      {children}
+    </Link>
+  );
+}
+
+const TableOfContentsElement = ({ name, index, isResumeLink }: IProps) => {
+
   const router = useRouter();
 
-  const textContainerRef = useRef<HTMLButtonElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
   const [numberOfDots, setNumberOfDots] = useState<number>(20);
 
 
 
   const selected = router.pathname === `/${name}`.toLowerCase();
 
-  const selectPage = (pageName: string) => {
-    router.push(pageName.toLowerCase())
-  };
 
-  const TextContainer = styled(Button)(({ theme }) => ({
-    display: 'flex',
-    marginBottom: '20px',
-    fontWeight: 'bolder',
-    justifyContent: 'center',
+
+  const TextContainer = styled(Container)(({ theme }) => ({
     width: '100%',
     height: '1rem',
-    fontSize: '20px',
+    display: 'flex',
     paddingX: '5px',
     paddingY: '10px',
+    fontSize: '20px',
+    cursor: 'pointer',
+    fontWeight: 'bolder',
+    userSelect: 'none',
+    marginBottom: '20px',
+    justifyContent: 'center',
     [theme.breakpoints.down('md')]: {
       justifyContent: 'start',
     },
@@ -47,33 +67,24 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
     },
   }));
 
-  const TOCDotsL = styled('span')(({ theme }) => ({
-    [theme.breakpoints.up('lg')]: {
-      display: 'block',
-    },
-    [theme.breakpoints.down('lg')]: {
-      display: 'none',
-    },
-    ':hover': {
-      backgroundColor: 'transparent'
-    }
-  }));
 
-  const TOCDotsM = styled('span')(({ theme }) => ({
-    display: 'none',
-    [theme.breakpoints.down('lg')]: {
-      display: 'block',
-    },
-    [theme.breakpoints.down('md')]: {
-      display: 'none',
-    },
-  }));
+  const CustomWrapper = styled(Container)(({ theme }) => ({
+    padding: 0,
+    margin: 0,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
+  }))
+
 
   const SetWidth = useCallback(() => {
+
     if (textContainerRef.current) {
-      const _ = textContainerRef.current?.clientWidth / 12;
-      if (textContainerRef.current?.clientWidth !== numberOfDots)
-        setNumberOfDots(_);
+      const dotCountFullWidth = textContainerRef.current?.clientWidth / 20;
+      const count = dotCountFullWidth - name.length;
+      if (count > 0 && count !== numberOfDots) {
+        setNumberOfDots(Math.floor(count));
+      }
     }
   }, [numberOfDots]);
 
@@ -87,13 +98,17 @@ const TableOfContentsElement = ({ name, index, noIndex }: IProps) => {
       window.removeEventListener('resize', SetWidth);
     };
   }, [numberOfDots, SetWidth]);
+
   return (
-    <TextContainer ref={textContainerRef} onClick={() => selectPage(name)}>
-      <span>{name}</span>
-      <TOCDotsL> {'.'.repeat(25 - name.length)}</TOCDotsL>
-      <TOCDotsM> {'.'.repeat(14 - name.length)}</TOCDotsM>
-      {noIndex ? null : <span>{index + 1}</span>}
-    </TextContainer>
+    <LinkWrapper name={name} shouldWrap={isResumeLink}>
+      <TextContainer ref={textContainerRef}>
+        <CustomWrapper>
+          {name}
+          {!isResumeLink && '.'.repeat(numberOfDots) + index + 1}
+          <br />
+        </CustomWrapper>
+      </TextContainer>
+    </LinkWrapper>
   );
 };
 

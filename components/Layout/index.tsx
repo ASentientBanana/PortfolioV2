@@ -1,9 +1,10 @@
 import SideNav from '../navigation/DrawerMenu';
 import DiamondButton from '../diamondButton';
 import TableOfContents from '../tableOfContents';
-import { useState, ReactChild } from 'react';
+import { useState, ReactChild, useContext } from 'react';
 import { styled } from '@mui/material';
 import ResumeButton from '../resumeButton';
+import { WindowSizeContext } from '../../context/window';
 
 interface IProps {
     children: ReactChild
@@ -21,7 +22,7 @@ const MainContainer = styled('div')(({ theme }) => ({
     justifyContent: 'start',
 }));
 
-export const PAGES = ['About', 'Contact', 'Projects']
+export const PAGES = ['About', 'Contact', 'Projects', 'Resume(CV)']
 
 const Layout = ({ children }: IProps) => {
 
@@ -36,7 +37,7 @@ const Layout = ({ children }: IProps) => {
                 text="☰"
             />
             <SideNav open={openDrawer} setOpen={setOpenDrawer} />
-            <ResumeButton />
+            {/* <ResumeButton /> */}
             <TableOfContents />
             {children}
         </MainContainer>

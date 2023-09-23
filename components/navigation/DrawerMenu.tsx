@@ -43,7 +43,7 @@ const MobileDrawer = ({ open, setOpen }: IProps) => {
       <DrawerList>
         {PAGES.map((page, index) => (
           <DrawerListItem key={index}>
-            <TableOfContentsElement noIndex name={page} index={index} />
+            <TableOfContentsElement isResumeLink={index === PAGES.length - 1} name={page} index={index} />
           </DrawerListItem>
         ))}
       </DrawerList>

@@ -1,5 +1,5 @@
 import { styled, Container } from '@mui/material';
-import React, { FormEventHandler, useRef, useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import { PageTitle } from '../components/pageTitle';
 
 
@@ -31,7 +31,7 @@ const Form = styled('form')(({ theme }) => ({
     width: '100%',
     padding: '10% 0',
     [theme.breakpoints.down('md')]: {
-//         padding: '10px',
+        //         padding: '10px',
     },
 
 }));
@@ -50,8 +50,8 @@ const SubmitButton = styled('button')(({ theme }) => ({
 const Input = styled('input')(({ theme }) => ({
     border: 'none',
     outline: 'none',
-    marginBottom:'2rem',
-    minWidth:0,
+    marginBottom: '2rem',
+    minWidth: 0,
     borderBottom: `double 3px ${theme.palette.primary.main}`,
     background: theme.palette.secondary.main,
     color: theme.palette.text.primary,

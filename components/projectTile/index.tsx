@@ -9,6 +9,8 @@ interface IProps {
 }
 
 const ProjectTile = ({ project, baseURl }: IProps) => {
+
+
   const MainContainer = styled(Container)(({ theme }) => ({
     border: `double 3px ${theme.palette.primary.main}`,
     minHeight: '270px',
@@ -62,7 +64,6 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
   }));
 
   const SectionTitle = styled('span')({
-    padding: '0 10px'
   })
 
   const LinkContainer = styled(Container)({
@@ -72,6 +73,14 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
     justifyContent: 'space-evenly'
   });
 
+  const TextContainer = styled(Container)({
+
+  })
+
+  const CustomImage = styled(Image)({
+    cursor: 'pointer'
+  })
+
   const Separator = styled('hr')(({ theme }) => ({
     border: `1px solid ${theme.palette.primary.main}`
   }))
@@ -79,20 +88,37 @@ const ProjectTile = ({ project, baseURl }: IProps) => {
   return (
     <MainContainer>
       <ImageContainer>
-        <Image
-          src={project.image ? `${baseURl}/${project.image}` : '/assets/default.jpg'}
-          layout="fill"
-          objectFit="contain"
-          alt="user image"
-        />
+        {
+          (project.live !== 'Null' || project.github !== 'Null') ?
+            <a target='_blank' href={project.live !== 'Null' ? project.live : project.github}>
+              <CustomImage
+                src={project.image ? `${baseURl}/${project.image}` : '/assets/default.jpg'}
+                layout="fill"
+                objectFit="contain"
+                alt="user image"
+              />
+            </a>
+            :
+            <Image
+              src={project.image ? `${baseURl}/${project.image}` : '/assets/default.jpg'}
+              layout="fill"
+              objectFit="contain"
+              alt="user image"
+            />
+        }
       </ImageContainer>
       <br />
-      <SectionTitle>Project: </SectionTitle>
-      {project.name}
+      <TextContainer>
+        <SectionTitle>Project: </SectionTitle>
+        <br />
+        <SectionTitle>{project.name} </SectionTitle>
+      </TextContainer>
+
       <br />
       <Separator />
-      <SectionTitle>Tech Stack</SectionTitle>
-      <br />
+      <TextContainer>
+        <SectionTitle>Tech Stack</SectionTitle>
+      </TextContainer>
       <TechContainer>
         {project.stack &&
           project.stack.split(',').map(

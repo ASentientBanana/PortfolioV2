@@ -26,6 +26,7 @@ const AboutText = styled('p')({
 
 const MainContainer = styled(Container)(({ theme }) => ({
     padding: '0',
+    userSelect: 'none',
     width: '80%',
     margin: '0 auto',
     [theme.breakpoints.down('sm')]: {

@@ -31,8 +31,9 @@ export async function getServerSideProps() {
 }
 
 const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: string }) => {
+
     const MainContainer = styled(Container)({
-        width: '100%',
+        width: '80%',
         overflowY: 'scroll',
     });
 
@@ -40,7 +41,7 @@ const ProjectPage = ({ projects, baseUrl }: { projects: IProject[], baseUrl: str
 
     const ContentContainer = styled(Container)(({ theme }) => ({
         display: 'grid',
-        gap: '5px',
+        gap: '15px',
         gridTemplateColumns: 'repeat(3,1fr)',
         [theme.breakpoints.down('xl')]: {
             display: 'grid',

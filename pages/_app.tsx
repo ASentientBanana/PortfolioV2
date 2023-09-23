@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import { ThemeContextProvider } from '../context/themeStore';
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import WindowSizeContextProvider from '../context/window';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -18,9 +19,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <ThemeContextProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <WindowSizeContextProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </WindowSizeContextProvider>
       </ThemeContextProvider>
     </>
   );
