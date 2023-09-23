@@ -72,7 +72,6 @@ const TableOfContentsElement = ({ name, index, isResumeLink }: IProps) => {
     padding: 0,
     margin: 0,
     [theme.breakpoints.down('sm')]: {
-      display: 'none'
     }
   }))
 
@@ -104,7 +103,7 @@ const TableOfContentsElement = ({ name, index, isResumeLink }: IProps) => {
       <TextContainer ref={textContainerRef}>
         <CustomWrapper>
           {name}
-          {!isResumeLink && '.'.repeat(numberOfDots) + index + 1}
+          {!isResumeLink && '.'.repeat(numberOfDots) + (index + 1)}
           <br />
         </CustomWrapper>
       </TextContainer>
